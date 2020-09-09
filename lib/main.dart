@@ -1,14 +1,17 @@
 
 import 'dart:async';
 
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:clock/hari.dart';
 import 'package:flutter/material.dart';
 import 'package:clock/clock_body.dart';
 
 void main() {
   
   runApp(MyApp());
-  const oneSec = const Duration(seconds:1);
-  new Timer.periodic(oneSec, (Timer t) => print('hi!'));
+  // const oneSec = const Duration(seconds:1);
+  // new Timer.periodic(oneSec, (Timer t) => print('hi!'));
 }
 
 class MyApp extends StatefulWidget {
@@ -20,7 +23,58 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   ThemeData _clockTheme = _buildClockTheme(false);
   List<bool> isSelected = [false];
+  List<bool> selected = [true, true, true];
+  static AudioCache cache = AudioCache();
+  AudioPlayer player;
+  bool isPlaying = false;
+  AudioCache _audioCache = AudioCache();
+  Color _myColor = Colors.grey[350];
+  Color _kColor = Colors.grey[350];
+  Color _pColor = Colors.grey[350];
+  List<RadioModel> sampleData = new List<RadioModel>();
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    sampleData.add(new RadioModel(false, "Jam Masuk"));
+    sampleData.add(new RadioModel(false, "Jam Keluar"));
+    sampleData.add(new RadioModel(false, "Jam Pulang"));
+    _audioCache = AudioCache(fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.LOOP));
+  }
+
+  void playerHandler1()async{
+    if(isPlaying){
+      player.stop();
+    }else{
+      player = await _audioCache.play('audio/1.mp3');
+    }
+    setState(() {
+      isPlaying = !isPlaying;
+    });
+  }
+
+  void playerHandler2() async{
+    if(isPlaying){
+      player.stop();
+    }else{
+      player = await _audioCache.play('audio/2.mp3');
+    }
+    setState(() {
+      isPlaying = !isPlaying;
+    });
+  }
+
+  void playerHandler3() async{
+    if(isPlaying){
+      player.stop();
+    }else{
+      player = await _audioCache.play('audio/3.mp3');
+    }
+    setState(() {
+      isPlaying = !isPlaying;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,12 +96,49 @@ class _MyAppState extends State<MyApp> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget> [
-                        RaisedButton(onPressed: (){},
-                        child: Text("Jam Masuk"),),
-                        RaisedButton(onPressed: (){},
-                        child: Text("Jam Istirahat"),),
-                        RaisedButton(onPressed: (){},
-                        child: Text("Jam Pulang"),)
+                            
+                        RaisedButton(
+                          color: _myColor,
+                          onPressed: () async{
+                            playerHandler1();
+                            setState(() {
+                              if(_myColor == Colors.grey[600]){
+                                _myColor = Colors.grey[350];
+                              }else{
+                                _myColor = Colors.grey[600];
+                              }
+                            });
+                          },
+                          child: Text("Jam Masuk"),
+                        ),
+                        RaisedButton(
+                          color: _kColor,
+                          onPressed: () async{
+                            playerHandler2();
+                            setState(() {
+                              if(_kColor == Colors.grey[600]){
+                                _kColor = Colors.grey[350];
+                              }else{
+                                _kColor = Colors.grey[600];
+                              }
+                            });
+                          },
+                          child: Text("Jam Istirahat"),
+                        ),
+                        RaisedButton(
+                          color: _pColor,
+                          onPressed: () async{
+                            playerHandler3();
+                            setState(() {
+                              if(_pColor == Colors.grey[600]){
+                                _pColor = Colors.grey[350];
+                              }else{
+                                _pColor = Colors.grey[600];
+                              }
+                            });
+                          },
+                          child: Text("Jam Pulang"),
+                        )
                       ],),
                       ),
                       Container(height: 200, width: 300, child: Clock()),
@@ -104,31 +195,134 @@ class _MyAppState extends State<MyApp> {
                       ])),
                         ],
                       ),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarDemo()));
+                              },
+                              child: Card(
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              child: Text("Senin"),
+                            ),
+                          ),
+                            ),
+                          InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarDemo()));
+                              },
+                              child: Card(
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              child: Text("Selasa"),
+                            ),
+                          ),
+                            ),
+                          InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarDemo()));
+                              },
+                              child: Card(
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              child: Text("Rabu"),
+                            ),
+                          ),
+                            ),
+                          InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarDemo()));
+                              },
+                              child: Card(
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              child: Text("Kamis"),
+                            ),
+                          ),
+                            ),
+                          InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarDemo()));
+                              },
+                              child: Card(
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              child: Text("Jum'at"),
+                            ),
+                          ),
+                            ),
+                          InkWell(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarDemo()));
+                              },
+                              child: Card(
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              child: Text("Sabtu"),
+                            ),
+                          ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Row(
+                      //   children: [
+                      //     Card(
+                      //       child: Container(
+                      //         padding: EdgeInsets.all(20),
+                      //         child: Text("senin"),
+                      //       ),
+                      //     ),
+                      //     Card(
+                      //       child: Container(
+                      //         padding: EdgeInsets.all(20),
+                      //         child: Text("selasa"),
+                      //       ),
+                      //     ),
+                      //     Card(
+                      //       child: Container(
+                      //         padding: EdgeInsets.all(20),
+                      //         child: Text("rabu"),
+                      //       ),
+                      //     ),
+                      //     Card(
+                      //       child: Container(
+                      //         padding: EdgeInsets.all(20),
+                      //         child: Text("kamis"),
+                      //       ),
+                      //     ),
+                      //     Card(
+                      //       child: Container(
+                      //         padding: EdgeInsets.all(20),
+                      //         child: Text("jum'at"),
+                      //       ),
+                      //     ),
+                      //     Card(
+                      //       child: Container(
+                      //         padding: EdgeInsets.all(20),
+                      //         child: Text("sabtu"),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget> [
                           ButtonBar(
                         children: [
                           new Builder(builder: (BuildContext context){
                             return RaisedButton(
+                              color: Colors.grey,
                               elevation: 2,
                               onPressed: (){},
-                              child: new Icon(Icons.add)
+                              child: new Text("Start", style: TextStyle(color: Colors.white),),
                             );
                           })
                         ],
                       ),
-                      Expanded(child: ButtonBar(
-                        children: [
-                          new Builder(builder: (BuildContext context){
-                            return RaisedButton(
-                              elevation: 2,
-                              onPressed: (){},
-                              child: new Text("Start"),
-                            );
-                          })
-                        ],
-                      ),)
                         ],
                       )
                       
@@ -193,69 +387,54 @@ ThemeData _buildClockTheme(bool darkMode) {
   );
 }
 
-        class TimerPage extends StatefulWidget {
-          @override
-          _TimerPageState createState() => _TimerPageState();
-        }
+class RadioItem extends StatelessWidget {
+  final RadioModel _item;
+  RadioItem(this._item);
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      margin: new EdgeInsets.all(15.0),
+      child: new Row(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          new Container(
+            height: 50.0,
+            width: 50.0,
+            child: new Center(
+              child: new Text(_item.buttonText,
+                  style: new TextStyle(
+                      color:
+                          _item.isSelected ? Colors.white : Colors.black,
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 18.0)),
+            ),
+            decoration: new BoxDecoration(
+              color: _item.isSelected
+                  ? Colors.blueAccent
+                  : Colors.transparent,
+              border: new Border.all(
+                  width: 1.0,
+                  color: _item.isSelected
+                      ? Colors.blueAccent
+                      : Colors.grey),
+              borderRadius: const BorderRadius.all(const Radius.circular(2.0)),
+            ),
+          ),
+          // new Container(
+          //   margin: new EdgeInsets.only(left: 10.0),
+          //   // child: new Text(_item.buttonText),
+          // )
+        ],
+      ),
+    );
+  }
+}
 
-        class _TimerPageState extends State<TimerPage> {
-          bool running = false;
-          @override
-          Widget build(BuildContext context) {
-            return Scaffold(
-              body: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    // TikTikTimer(
-                    //   initialDate: DateTime.now(),
-                    //   running: running,
-                    //   height: 150,
-                    //   width: 150,
-                    //   backgroundColor: Colors.indigo,
-                    //   timerTextStyle: TextStyle(color: Colors.white, fontSize: 20),
-                    //   borderRadius: 100,
-                    //   isRaised: true,
-                    //   tracetime: (time) {
-                    //     // print(time.getCurrentSecond);
-                    //   },
-                    // ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        RaisedButton(
-                          child: Text(
-                            'Start',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          color: Colors.green,
-                          onPressed: () {
-                            try {
-                              if (running == false)
-                                setState(() {
-                                  running = true;
-                                });
-                            } on Exception {}
-                          },
-                        ),
-                        RaisedButton(
-                          child: Text(
-                            'Stop',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          color: Colors.red,
-                          onPressed: () {
-                            if (running == true)
-                              setState(() {
-                                running = false;
-                              });
-                          },
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            );
-          }
-        }
+
+class RadioModel {
+  bool isSelected;
+  final String buttonText;
+  
+
+  RadioModel(this.isSelected, this.buttonText,);
+}
