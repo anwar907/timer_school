@@ -11,7 +11,11 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
+<<<<<<< HEAD
 	<string>clock</string>
+=======
+	<string>bel_sekolah3</string>
+>>>>>>> a2f72bff68a90428e9a6602fe7e786549cc52871
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:clock/clock_face.dart';
 
 class ClockBody extends StatefulWidget {
-
   @override
   _ClockBodyState createState() => _ClockBodyState();
 }
@@ -13,7 +12,8 @@ class _ClockBodyState extends State<ClockBody> {
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1.0, //Make sure clock width and height are the same
-      child: Center(  //Make sure that clock is centered on screen
+      child: Center(
+        //Make sure that clock is centered on screen
         child: Stack(
           //Clock body, then hands will go over
           children: [

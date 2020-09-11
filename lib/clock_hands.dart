@@ -12,7 +12,6 @@ class ClockHands extends StatefulWidget {
 }
 
 class _ClockHandsState extends State<ClockHands> {
-
   Timer _timer;
   DateTime dateTime;
 
@@ -38,42 +37,38 @@ class _ClockHandsState extends State<ClockHands> {
     super.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return new AspectRatio(
-        aspectRatio: 1.0,
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(20.0),
-          child: Stack(
-            fit: StackFit.expand,
-            children: <Widget>[
-              CustomPaint(
-                painter: HourHandPainter(
-                  hours: dateTime.hour,
-                  minutes: dateTime.minute,
-                  color: Theme.of(context).colorScheme.primaryVariant,
-                ),
+      aspectRatio: 1.0,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(20.0),
+        child: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            CustomPaint(
+              painter: HourHandPainter(
+                hours: dateTime.hour,
+                minutes: dateTime.minute,
+                color: Theme.of(context).colorScheme.primaryVariant,
               ),
-              CustomPaint(
+            ),
+            CustomPaint(
                 painter: MinuteHandPainter(
-                  minutes: dateTime.minute,
-                  seconds: dateTime.second,
-                  color: Theme.of(context).colorScheme.primaryVariant,
-                )
+              minutes: dateTime.minute,
+              seconds: dateTime.second,
+              color: Theme.of(context).colorScheme.primaryVariant,
+            )),
+            CustomPaint(
+              painter: SecondHandPainter(
+                seconds: dateTime.second,
+                color: Theme.of(context).colorScheme.primaryVariant,
               ),
-              CustomPaint(
-                painter: SecondHandPainter(
-                  seconds: dateTime.second,
-                  color: Theme.of(context).colorScheme.primaryVariant,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
     );
   }
 }
-
