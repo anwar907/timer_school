@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import 'package:bel_sekolah3/clock_hand_hour.dart';
+import 'package:bel_sekolah3/clock_hand_minute.dart';
+import 'package:bel_sekolah3/clock_hand_second.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:clock/clock_hand_hour.dart';
-import 'package:clock/clock_hand_minute.dart';
-import 'package:clock/clock_hand_second.dart';
 
 class ClockHands extends StatefulWidget {
   @override
