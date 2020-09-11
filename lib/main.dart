@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:audioplayers/audio_cache.dart';
@@ -8,9 +7,7 @@ import 'package:bel_sekolah3/hari.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-
 void main() {
-  
   runApp(MyApp());
   // const oneSec = const Duration(seconds:1);
   // new Timer.periodic(oneSec, (Timer t) => print('hi!'));
@@ -41,20 +38,24 @@ class _MyAppState extends State<MyApp> {
   var jam = '';
   var hari = '';
   String dropdownValue = 'Bel Masuk';
-  List<String> sundayWaktu = ["22:00:00","23:00:00","00:00:00"]; 
-  List<String> sundayBel = ["Masuk","Istirahat","Pulang"]; 
-  List<String> tuesdayWaktu = ["22:00:00","23:00:00","00:00:00"]; 
-  List<String> tuesdayBel = ["Masuk","Istirahat","Pulang"]; 
-  List<String> wednesdayWaktu = ["22:00:00","23:00:00","00:00:00"]; 
-  List<String> wednesdayBel = ["Masuk","Istirahat","Pulang"]; 
-  List<String> thursdayWaktu = ["22:00:00","23:00:00","00:00:00"]; 
-  List<String> thursdayBel = ["Masuk","Istirahat","Pulang"]; 
-  List<String> fridayWaktu = ["23:01:00","23:02:00","23:03:00"]; 
-  List<String> fridayBel = ["Masuk","Istirahat","Pulang"]; 
-  List<String> saturdayWaktu = ["22:00:00","23:00:00","00:00:00"]; 
-  List<String> saturdayBel = ["Masuk","Istirahat","Pulang"]; 
+  List<String> sundayWaktu = ["22:00:00", "23:00:00", "00:00:00"];
+  List<String> sundayBel = ["Masuk", "Istirahat", "Pulang"];
+  List<String> tuesdayWaktu = ["22:00:00", "23:00:00", "00:00:00"];
+  List<String> tuesdayBel = ["Masuk", "Istirahat", "Pulang"];
+  List<String> wednesdayWaktu = ["22:00:00", "23:00:00", "00:00:00"];
+  List<String> wednesdayBel = ["Masuk", "Istirahat", "Pulang"];
+  List<String> thursdayWaktu = ["22:00:00", "23:00:00", "00:00:00"];
+  List<String> thursdayBel = ["Masuk", "Istirahat", "Pulang"];
+  List<String> fridayWaktu = ["23:01:00", "23:02:00", "23:03:00"];
+  List<String> fridayBel = ["Masuk", "Istirahat", "Pulang"];
+  List<String> saturdayWaktu = ["22:00:00", "23:00:00", "00:00:00"];
+  List<String> saturdayBel = ["Masuk", "Istirahat", "Pulang"];
 
-  List<Map> beldanwaktuFri = [{'jam' : "23:53:00",'bel': "Masuk"},{'jam' : "23:54:00",'bel': "Istirahat"},{'jam' : "23:55:00",'bel': "Pulang"}];
+  List<Map> beldanwaktuFri = [
+    {'jam': "23:53:00", 'bel': "Masuk"},
+    {'jam': "23:54:00", 'bel': "Istirahat"},
+    {'jam': "23:55:00", 'bel': "Pulang"}
+  ];
 
   @override
   void initState() {
@@ -63,8 +64,10 @@ class _MyAppState extends State<MyApp> {
     sampleData.add(new RadioModel(false, "Jam Masuk"));
     sampleData.add(new RadioModel(false, "Jam Keluar"));
     sampleData.add(new RadioModel(false, "Jam Pulang"));
-    _audioCache = AudioCache(fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.LOOP));
-    _bunyi = AudioCache(fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.STOP));
+    _audioCache = AudioCache(
+        fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.LOOP));
+    _bunyi = AudioCache(
+        fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.STOP));
     startJam();
     //belbunyiotomatis();
   }
@@ -84,6 +87,7 @@ class _MyAppState extends State<MyApp> {
       belbunyiotomatis();
     });
   }
+
   void belbunyi() async {
     if (isPlaying) {
       player.stop();
@@ -102,20 +106,21 @@ class _MyAppState extends State<MyApp> {
   }
 
   void belbunyiotomatis() async {
-    if (hari == "Fri"){
-      for( var i in beldanwaktuFri){
-        if(jam == i['jam']){
-          if(i['bel'] == "Masuk"){
-             player = await _bunyi.play('audio/3.mp3');
-          }else if(i['bel'] == "Istirahat"){
+    if (hari == "Fri") {
+      for (var i in beldanwaktuFri) {
+        if (jam == i['jam']) {
+          if (i['bel'] == "Masuk") {
+            player = await _bunyi.play('audio/3.mp3');
+          } else if (i['bel'] == "Istirahat") {
             player = await _bunyi.play('audio/2.mp3');
-          }else if(i['bel'] == "Pulang"){
+          } else if (i['bel'] == "Pulang") {
             player = await _bunyi.play('audio/1.mp3');
           }
         }
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -127,7 +132,8 @@ class _MyAppState extends State<MyApp> {
               builder: (context, orientation) {
                 return Container(
                   padding: EdgeInsets.all(8.0),
-                  child: Column(    //Flex is basically row and column combined into one
+                  child: Column(
+                    //Flex is basically row and column combined into one
                     //Change axis based on orientation of screen
                     // direction: orientation == Orientation.portrait
                     // ? Axis.vertical : Axis.horizontal,
@@ -136,111 +142,131 @@ class _MyAppState extends State<MyApp> {
                       Center(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget> [
-                            
-                        DropdownButton<String>(
-              value: dropdownValue,
-              icon: Icon(Icons.arrow_downward),
-              iconSize: 24,
-              elevation: 16,
-              style: TextStyle(color: Colors.black),
-              underline: Container(
-                height: 2,
-                color: Colors.black,
-              ),
-              onChanged: (String newValue) async {
-                setState(() {
-                  dropdownValue = newValue;
-                });
-                if (isPlaying) {
-                  if (dropdownValue == "Bel Masuk") {
-                    player = await _audioCache.play('audio/3.mp3');
-                  } else if (dropdownValue == "Bel Istirahat") {
-                    player = await _audioCache.play('audio/2.mp3');
-                  } else if (dropdownValue == "Bel Pulang") {
-                    player = await _audioCache.play('audio/1.mp3');
-                  }
-                }
-                
-              },
-              items: <String>['Bel Masuk', 'Bel Istirahat', 'Bel Pulang']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            SizedBox(width: 10),
-            RaisedButton(
-                color: mycolor,
-                child: Text("Bel Bunyi"),
-                onPressed: () {
-                  belbunyi();
-                  setState(() {
-                    if (mycolor == Colors.grey[350]) {
-                      mycolor = Colors.grey[600];
-                    } else {
-                      mycolor = Colors.grey[350];
-                    }
-                  });
-                })
-                      ],),
+                          children: <Widget>[
+                            DropdownButton<String>(
+                              value: dropdownValue,
+                              icon: Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: TextStyle(color: Colors.black),
+                              underline: Container(
+                                height: 2,
+                                color: Colors.black,
+                              ),
+                              onChanged: (String newValue) async {
+                                setState(() {
+                                  dropdownValue = newValue;
+                                });
+                                if (isPlaying) {
+                                  if (dropdownValue == "Bel Masuk") {
+                                    player =
+                                        await _audioCache.play('audio/3.mp3');
+                                  } else if (dropdownValue == "Bel Istirahat") {
+                                    player =
+                                        await _audioCache.play('audio/2.mp3');
+                                  } else if (dropdownValue == "Bel Pulang") {
+                                    player =
+                                        await _audioCache.play('audio/1.mp3');
+                                  }
+                                }
+                              },
+                              items: <String>[
+                                'Bel Masuk',
+                                'Bel Istirahat',
+                                'Bel Pulang'
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                            SizedBox(width: 10),
+                            RaisedButton(
+                                color: mycolor,
+                                child: Text("Bel Bunyi"),
+                                onPressed: () {
+                                  belbunyi();
+                                  setState(() {
+                                    if (mycolor == Colors.grey[350]) {
+                                      mycolor = Colors.grey[600];
+                                    } else {
+                                      mycolor = Colors.grey[350];
+                                    }
+                                  });
+                                })
+                          ],
+                        ),
                       ),
                       Container(height: 200, width: 300, child: Clock()),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget> [
+                        children: <Widget>[
                           Container(
-                      margin: EdgeInsets.symmetric(horizontal: 5),
-                      padding: EdgeInsets.all(20),
-                      decoration: new BoxDecoration(
-                          borderRadius: new BorderRadius.circular(10), color: Colors.black54),
-                      child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                        Text(tanggal, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),),
-                        Text(jam, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),),
-                      //   Text(
-                      //     '00',
-                      //     style: TextStyle(
-                      //         color: Colors.white, fontSize: 54, fontWeight: FontWeight.bold),
-                      //   ),
-                      //   Text('Jam',
-                      //       style: TextStyle(
-                      //         color: Colors.white,
-                      //       ))
-                      // ])),
-                      // Container(
-                      // margin: EdgeInsets.symmetric(horizontal: 5),
-                      // padding: EdgeInsets.all(20),
-                      // decoration: new BoxDecoration(
-                      //     borderRadius: new BorderRadius.circular(10), color: Colors.black54),
-                      // child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                      //   Text(
-                      //     '00',
-                      //     style: TextStyle(
-                      //         color: Colors.white, fontSize: 54, fontWeight: FontWeight.bold),
-                      //   ),
-                      //   Text('Min',
-                      //       style: TextStyle(
-                      //         color: Colors.white,
-                      //       ))
-                      // ])),
-                      // Container(
-                      // margin: EdgeInsets.symmetric(horizontal: 5),
-                      // padding: EdgeInsets.all(20),
-                      // decoration: new BoxDecoration(
-                      //     borderRadius: new BorderRadius.circular(10), color: Colors.black54),
-                      // child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                      //   Text(
-                      //     '00',
-                      //     style: TextStyle(
-                      //         color: Colors.white, fontSize: 54, fontWeight: FontWeight.bold),
-                      //   ),
-                      //   Text('Sec',
-                      //       style: TextStyle(
-                      //         color: Colors.white,
-                      //       ))
-                      ])),
+                              margin: EdgeInsets.symmetric(horizontal: 5),
+                              padding: EdgeInsets.all(20),
+                              decoration: new BoxDecoration(
+                                  borderRadius: new BorderRadius.circular(10),
+                                  color: Colors.black54),
+                              child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Text(
+                                      tanggal,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      jam,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    //   Text(
+                                    //     '00',
+                                    //     style: TextStyle(
+                                    //         color: Colors.white, fontSize: 54, fontWeight: FontWeight.bold),
+                                    //   ),
+                                    //   Text('Jam',
+                                    //       style: TextStyle(
+                                    //         color: Colors.white,
+                                    //       ))
+                                    // ])),
+                                    // Container(
+                                    // margin: EdgeInsets.symmetric(horizontal: 5),
+                                    // padding: EdgeInsets.all(20),
+                                    // decoration: new BoxDecoration(
+                                    //     borderRadius: new BorderRadius.circular(10), color: Colors.black54),
+                                    // child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                                    //   Text(
+                                    //     '00',
+                                    //     style: TextStyle(
+                                    //         color: Colors.white, fontSize: 54, fontWeight: FontWeight.bold),
+                                    //   ),
+                                    //   Text('Min',
+                                    //       style: TextStyle(
+                                    //         color: Colors.white,
+                                    //       ))
+                                    // ])),
+                                    // Container(
+                                    // margin: EdgeInsets.symmetric(horizontal: 5),
+                                    // padding: EdgeInsets.all(20),
+                                    // decoration: new BoxDecoration(
+                                    //     borderRadius: new BorderRadius.circular(10), color: Colors.black54),
+                                    // child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                                    //   Text(
+                                    //     '00',
+                                    //     style: TextStyle(
+                                    //         color: Colors.white, fontSize: 54, fontWeight: FontWeight.bold),
+                                    //   ),
+                                    //   Text('Sec',
+                                    //       style: TextStyle(
+                                    //         color: Colors.white,
+                                    //       ))
+                                  ])),
                         ],
                       ),
                       SingleChildScrollView(
@@ -248,70 +274,88 @@ class _MyAppState extends State<MyApp> {
                         child: Row(
                           children: [
                             InkWell(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarDemo()));
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TabBarDemo()));
                               },
                               child: Card(
-                            child: Container(
-                              padding: EdgeInsets.all(20),
-                              child: Text("Senin"),
+                                child: Container(
+                                  padding: EdgeInsets.all(20),
+                                  child: Text("Senin"),
+                                ),
+                              ),
                             ),
-                          ),
-                            ),
-                          InkWell(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarDemo()));
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TabBarDemo()));
                               },
                               child: Card(
-                            child: Container(
-                              padding: EdgeInsets.all(20),
-                              child: Text("Selasa"),
+                                child: Container(
+                                  padding: EdgeInsets.all(20),
+                                  child: Text("Selasa"),
+                                ),
+                              ),
                             ),
-                          ),
-                            ),
-                          InkWell(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarDemo()));
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TabBarDemo()));
                               },
                               child: Card(
-                            child: Container(
-                              padding: EdgeInsets.all(20),
-                              child: Text("Rabu"),
+                                child: Container(
+                                  padding: EdgeInsets.all(20),
+                                  child: Text("Rabu"),
+                                ),
+                              ),
                             ),
-                          ),
-                            ),
-                          InkWell(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarDemo()));
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TabBarDemo()));
                               },
                               child: Card(
-                            child: Container(
-                              padding: EdgeInsets.all(20),
-                              child: Text("Kamis"),
+                                child: Container(
+                                  padding: EdgeInsets.all(20),
+                                  child: Text("Kamis"),
+                                ),
+                              ),
                             ),
-                          ),
-                            ),
-                          InkWell(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarDemo()));
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TabBarDemo()));
                               },
                               child: Card(
-                            child: Container(
-                              padding: EdgeInsets.all(20),
-                              child: Text("Jum'at"),
+                                child: Container(
+                                  padding: EdgeInsets.all(20),
+                                  child: Text("Jum'at"),
+                                ),
+                              ),
                             ),
-                          ),
-                            ),
-                          InkWell(
-                              onTap: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => TabBarDemo()));
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TabBarDemo()));
                               },
                               child: Card(
-                            child: Container(
-                              padding: EdgeInsets.all(20),
-                              child: Text("Sabtu"),
-                            ),
-                          ),
+                                child: Container(
+                                  padding: EdgeInsets.all(20),
+                                  child: Text("Sabtu"),
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -358,22 +402,25 @@ class _MyAppState extends State<MyApp> {
                       // ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget> [
+                        children: <Widget>[
                           ButtonBar(
-                        children: [
-                          new Builder(builder: (BuildContext context){
-                            return RaisedButton(
-                              color: Colors.grey,
-                              elevation: 2,
-                              onPressed: (){},
-                              child: new Text("Start", style: TextStyle(color: Colors.white),),
-                            );
-                          })
-                        ],
-                      ),
+                            children: [
+                              new Builder(builder: (BuildContext context) {
+                                return RaisedButton(
+                                  color: Colors.grey,
+                                  elevation: 2,
+                                  onPressed: () {},
+                                  child: new Text(
+                                    "Start",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                );
+                              })
+                            ],
+                          ),
                         ],
                       )
-                      
+
                       // Material(
                       //   child: ToggleButtons(
                       //     color: Colors.grey[800],
@@ -408,8 +455,8 @@ class Clock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: ClockBody(),
-      );
+      child: ClockBody(),
+    );
   }
 }
 
@@ -424,7 +471,7 @@ ThemeData _buildClockTheme(bool darkMode) {
             secondary: Colors.grey[900],
             secondaryVariant: Colors.grey[700],
             primaryVariant: Colors.white,
-    )
+          )
         : base.colorScheme.copyWith(
             primary: Colors.grey[300],
             secondary: Colors.grey[500],
@@ -451,20 +498,15 @@ class RadioItem extends StatelessWidget {
             child: new Center(
               child: new Text(_item.buttonText,
                   style: new TextStyle(
-                      color:
-                          _item.isSelected ? Colors.white : Colors.black,
+                      color: _item.isSelected ? Colors.white : Colors.black,
                       //fontWeight: FontWeight.bold,
                       fontSize: 18.0)),
             ),
             decoration: new BoxDecoration(
-              color: _item.isSelected
-                  ? Colors.blueAccent
-                  : Colors.transparent,
+              color: _item.isSelected ? Colors.blueAccent : Colors.transparent,
               border: new Border.all(
                   width: 1.0,
-                  color: _item.isSelected
-                      ? Colors.blueAccent
-                      : Colors.grey),
+                  color: _item.isSelected ? Colors.blueAccent : Colors.grey),
               borderRadius: const BorderRadius.all(const Radius.circular(2.0)),
             ),
           ),
@@ -478,11 +520,12 @@ class RadioItem extends StatelessWidget {
   }
 }
 
-
 class RadioModel {
   bool isSelected;
   final String buttonText;
-  
 
-  RadioModel(this.isSelected, this.buttonText,);
+  RadioModel(
+    this.isSelected,
+    this.buttonText,
+  );
 }
