@@ -126,9 +126,7 @@ class TabBarDemo extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return Card(
                   child: ListTile(
-                    leading: Text("SET TIME"),
-                    trailing: Icon(Icons.add),
-                  ),
+                      leading: Text("SET TIME"), trailing: Text("Deskripsi")),
                 );
               }),
         ),
