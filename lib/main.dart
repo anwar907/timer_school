@@ -44,26 +44,10 @@ class _MyAppState extends State<MyApp> {
   var jam = '';
   var hari = '';
   String dropdownValue = 'Bel Masuk';
-  List<String> sundayWaktu = ["22:00:00", "23:00:00", "00:00:00"];
-  List<String> sundayBel = ["Masuk", "Istirahat", "Pulang"];
-  List<String> tuesdayWaktu = ["22:00:00", "23:00:00", "00:00:00"];
-  List<String> tuesdayBel = ["Masuk", "Istirahat", "Pulang"];
-  List<String> wednesdayWaktu = ["22:00:00", "23:00:00", "00:00:00"];
-  List<String> wednesdayBel = ["Masuk", "Istirahat", "Pulang"];
-  List<String> thursdayWaktu = ["22:00:00", "23:00:00", "00:00:00"];
-  List<String> thursdayBel = ["Masuk", "Istirahat", "Pulang"];
-  List<String> fridayWaktu = ["23:01:00", "23:02:00", "23:03:00"];
-  List<String> fridayBel = ["Masuk", "Istirahat", "Pulang"];
-  List<String> saturdayWaktu = ["22:00:00", "23:00:00", "00:00:00"];
-  List<String> saturdayBel = ["Masuk", "Istirahat", "Pulang"];
+  
   List<Map> listJadwal = [];
   List<Map<Map, dynamic>> listmap;
 
-  List<Map> beldanwaktuFri = [
-    {'jam': "23:53:00", 'bel': "Masuk"},
-    {'jam': "23:54:00", 'bel': "Istirahat"},
-    {'jam': "23:55:00", 'bel': "Pulang"}
-  ];
 
   @override
   void initState() {
@@ -121,9 +105,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   void belbunyiotomatis() async {
-    //if (hari == "Mon") {
+
       for (var i in listJadwal) {
-        // print(i['Tue']['jam']);
         if (hari == "Mon") {
           if(jam == i['Mon']['jam']){
           if (i['Mon']['bel'] == "Bel Masuk"){
