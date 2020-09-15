@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:clock/clock_face.dart';
+import 'clock_face.dart';
 
 class ClockBody extends StatefulWidget {
   @override

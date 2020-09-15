@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:bel_sekolah3/jadwal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -15,12 +16,16 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
+  final List<Map> listJadwal;
+  final String hari;
   // This widget is the root of your application.
+  MyApp({this.listJadwal, this.hari});
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  Jadwal list;
   ThemeData _clockTheme = _buildClockTheme(false);
   Color mycolor = Colors.grey[350];
   List<bool> isSelected = [false];
@@ -51,6 +56,8 @@ class _MyAppState extends State<MyApp> {
   List<String> fridayBel = ["Masuk", "Istirahat", "Pulang"];
   List<String> saturdayWaktu = ["22:00:00", "23:00:00", "00:00:00"];
   List<String> saturdayBel = ["Masuk", "Istirahat", "Pulang"];
+  List<Map> listJadwal = [];
+  List<Map<Map, dynamic>> listmap;
 
   List<Map> beldanwaktuFri = [
     {'jam': "23:53:00", 'bel': "Masuk"},
@@ -70,7 +77,14 @@ class _MyAppState extends State<MyApp> {
     _bunyi = AudioCache(
         fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.STOP));
     startJam();
+    
     //belbunyiotomatis();
+    if(widget.listJadwal == null){
+      listJadwal = [];
+    }else{
+      listJadwal = widget.listJadwal;
+    }
+    print(listJadwal);
   }
 
   void startJam() {
@@ -107,20 +121,72 @@ class _MyAppState extends State<MyApp> {
   }
 
   void belbunyiotomatis() async {
-    if (hari == "Fri") {
-      for (var i in beldanwaktuFri) {
-        if (jam == i['jam']) {
-          if (i['bel'] == "Masuk") {
+    //if (hari == "Mon") {
+      for (var i in listJadwal) {
+        // print(i['Tue']['jam']);
+        if (hari == "Mon") {
+          if(jam == i['Mon']['jam']){
+          if (i['Mon']['bel'] == "Bel Masuk"){
             player = await _bunyi.play('audio/3.mp3');
-          } else if (i['bel'] == "Istirahat") {
+          }else if (i['Mon']['bel'] == "Bel Istirahat") {
             player = await _bunyi.play('audio/2.mp3');
-          } else if (i['bel'] == "Pulang") {
+          } else if (i['Mon']['bel'] == "Bel Pulang") {
             player = await _bunyi.play('audio/1.mp3');
           }
+         }
+        }else if (hari == "Tue"){
+          if(jam == i['Tue']['jam']){
+          if (i['Tue']['bel'] == "Bel Masuk"){
+            player = await _bunyi.play('audio/3.mp3');
+          }else if (i['Tue']['bel'] == "Bel Istirahat") {
+            player = await _bunyi.play('audio/2.mp3');
+          } else if (i['Tue']['bel'] == "Bel Pulang") {
+            player = await _bunyi.play('audio/1.mp3');
+          }
+         }
+        }else if (hari == "Wed"){
+          if(jam == i['Wed']['jam']){
+          if (i['Wed']['bel'] == "Bel Masuk"){
+            player = await _bunyi.play('audio/3.mp3');
+          }else if (i['Wed']['bel'] == "Bel Istirahat") {
+            player = await _bunyi.play('audio/2.mp3');
+          } else if (i['Wed']['bel'] == "Bel Pulang") {
+            player = await _bunyi.play('audio/1.mp3');
+          }
+         }
+        }else if (hari == "Thu"){
+          if(jam == i['Thu']['jam']){
+          if (i['Thu']['bel'] == "Bel Masuk"){
+            player = await _bunyi.play('audio/3.mp3');
+          }else if (i['Thu']['bel'] == "Bel Istirahat") {
+            player = await _bunyi.play('audio/2.mp3');
+          } else if (i['Thu']['bel'] == "Bel Pulang") {
+            player = await _bunyi.play('audio/1.mp3');
+          }
+         }
+        }else if (hari == "Fri"){
+          if(jam == i['Fri']['jam']){
+          if (i['Fri']['bel'] == "Bel Masuk"){
+            player = await _bunyi.play('audio/3.mp3');
+          }else if (i['Fri']['bel'] == "Bel Istirahat") {
+            player = await _bunyi.play('audio/2.mp3');
+          } else if (i['Fri']['bel'] == "Bel Pulang") {
+            player = await _bunyi.play('audio/1.mp3');
+          }
+         }
+        }else if (hari == "Sat"){
+          if(jam == i['Sat']['jam']){
+          if (i['Sat']['bel'] == "Bel Masuk"){
+            player = await _bunyi.play('audio/3.mp3');
+          }else if (i['Sat']['bel'] == "Bel Istirahat") {
+            player = await _bunyi.play('audio/2.mp3');
+          } else if (i['Sat']['bel'] == "Bel Pulang") {
+            player = await _bunyi.play('audio/1.mp3');
+          }
+         }
         }
       }
-    }
-  }
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -279,7 +345,7 @@ class _MyAppState extends State<MyApp> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => TabBarDemo()));
+                                        builder: (context) => TabBarDemo(hari: "Mon",listJadwal: listJadwal)));
                               },
                               child: Card(
                                 child: Container(
@@ -293,7 +359,7 @@ class _MyAppState extends State<MyApp> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => TabBarDemo()));
+                                        builder: (context) => TabBarDemo(hari: "Tue",listJadwal: listJadwal)));
                               },
                               child: Card(
                                 child: Container(
@@ -307,7 +373,7 @@ class _MyAppState extends State<MyApp> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => TabBarDemo()));
+                                        builder: (context) => TabBarDemo(hari: "Wed",listJadwal: listJadwal)));
                               },
                               child: Card(
                                 child: Container(
@@ -321,7 +387,7 @@ class _MyAppState extends State<MyApp> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => TabBarDemo()));
+                                        builder: (context) => TabBarDemo(hari: "Thu", listJadwal: listJadwal)));
                               },
                               child: Card(
                                 child: Container(
@@ -335,7 +401,7 @@ class _MyAppState extends State<MyApp> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => TabBarDemo()));
+                                        builder: (context) => TabBarDemo(hari: "Fri",listJadwal: listJadwal)));
                               },
                               child: Card(
                                 child: Container(
@@ -349,7 +415,7 @@ class _MyAppState extends State<MyApp> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => TabBarDemo()));
+                                        builder: (context) => TabBarDemo(hari: "Sat",listJadwal: listJadwal)));
                               },
                               child: Card(
                                 child: Container(
